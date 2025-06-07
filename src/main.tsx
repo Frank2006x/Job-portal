@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import { ClerkProvider } from "@clerk/clerk-react";
-import {  shadesOfPurple } from "@clerk/themes";
+import { shadesOfPurple } from "@clerk/themes";
 
 // Import your Publishable Key
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
@@ -16,11 +16,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ClerkProvider
       appearance={{
-        baseTheme: [ shadesOfPurple],
-        variables: { colorPrimary: "blue" },
+        baseTheme: [shadesOfPurple],
         signIn: {
           baseTheme: [shadesOfPurple],
-          variables: { colorPrimary: "blue" },
         },
       }}
       publishableKey={PUBLISHABLE_KEY}
