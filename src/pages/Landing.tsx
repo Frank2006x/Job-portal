@@ -29,7 +29,7 @@ const Landing = () => {
         </p>
       </section>
       <div className="flex gap-7 justify-center">
-        <Link to="/job-listing">
+        <Link to="/jobs">
           <Button variant={"blue"} size={"xl"}>
             Find Jobs
           </Button>

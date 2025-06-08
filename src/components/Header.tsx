@@ -1,18 +1,19 @@
-// import {
-//   SignedIn,
-//   SignedOut,
-//   SignInButton,
-//   UserButton,
-// } from "@clerk/clerk-react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Button } from "./ui/button";
-import { SignedOut, SignedIn, SignIn, UserButton } from "@clerk/clerk-react";
+import {
+  SignedOut,
+  SignedIn,
+  SignIn,
+  UserButton,
+  useUser,
+} from "@clerk/clerk-react";
 import { BriefcaseBusiness, Heart, PenBox } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
 const Header = () => {
   const [showSignIn, setShowSignIn] = useState(false);
   const [search, setSearch] = useSearchParams();
+  const { user } = useUser();
   useEffect(() => {
     if (search.get("sign-in")) {
       setShowSignIn(true);
@@ -42,31 +43,35 @@ const Header = () => {
           </SignedOut>
           {/* condition  */}
           <SignedIn>
-            <Button variant={"destructive"} className="rounded-full">
+            {user?.unsafeMetadata.role=="Recruiter" && <Link to="/post-job">
+            <Button variant={"destructive"} className="my-auto rounded-full">
               <PenBox size={20} className="mr-2" />
               Post a Job
             </Button>
-            <Link to="/post-job"></Link>
-            <UserButton
-              appearance={{
-                elements: {
-                  avatarBox: "h-20 w-20",
-                },
-              }}
-            >
-              <UserButton.MenuItems>
-                <UserButton.Link
-                  label="My Jobs"
-                  href="/my-jobs"
-                  labelIcon={<BriefcaseBusiness size={15} />}
-                />
-                <UserButton.Link
-                  label="Saved Jobs"
-                  href="/saved-jobs"
-                  labelIcon={<Heart size={15} />}
-                />
-              </UserButton.MenuItems>
-            </UserButton>
+            </Link>}
+            
+            <div className="my-auto">
+              <UserButton
+                appearance={{
+                  elements: {
+                    avatarBox: "h-20 w-20",
+                  },
+                }}
+              >
+                <UserButton.MenuItems>
+                  <UserButton.Link
+                    label="My Jobs"
+                    href="/my-jobs"
+                    labelIcon={<BriefcaseBusiness size={15} />}
+                  />
+                  <UserButton.Link
+                    label="Saved Jobs"
+                    href="/saved-jobs"
+                    labelIcon={<Heart size={15} />}
+                  />
+                </UserButton.MenuItems>
+              </UserButton>
+            </div>
           </SignedIn>
         </div>
       </nav>
